@@ -1,0 +1,26 @@
+.landingImg{
+    transition: 2s;
+}
+.landingImg:hover{
+    scale: 1.12;
+    transition: ease-in-out 1s;
+    rotate: 180deg;
+}
+.scroll-wrapper {
+    overflow: hidden;
+    width: 99%;
+    position: relative;
+}
+.scroll-text{
+    white-space: nowrap;
+    display: inline-block;
+    animation: scroll-left 20s linear infinite;
+}
+@keyframes scroll-left {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(-100%);
+    }
+}

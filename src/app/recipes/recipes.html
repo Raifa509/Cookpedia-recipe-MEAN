@@ -1,0 +1,64 @@
+<app-header />
+<div class="mx-2 my-5">
+
+    <div class="row mx-5">
+        <!-- filter section -->
+        <div class="col-lg-3">
+            <h4>Filter</h4>
+            <button class="btn mt-5">All</button>
+            <br>
+            <!-- cuisine dropdown menu -->
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Cuisine Type
+            </button>
+            <div class="collapse my-2" id="collapseExample">
+                <!-- duplicate cuisine -->
+                <button class="btn">Cuisine</button>
+            </div>
+            <br>
+            <!-- meal type dropdown menu -->
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                Meal Type
+            </button>
+            <div class="collapse my-2" id="collapseExample1">
+                <!-- duplicate cuisine -->
+                <button class="btn">Meal</button>
+            </div>
+
+        </div>
+        <div class="col-lg-9">
+            <!-- heading -->
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>All Recipes</h3>
+                <input type="text" placeholder="Search your Recipe here" class="form-control w-50">
+            </div>
+
+            <!-- content -->
+            <div class="row my-5">
+                <!-- duplicate -->
+
+                @for (recipe of allRecipes; track $index) {
+                <div class="col-lg-3 my-2">
+                    <div class="p-3 shadow rounded">
+                        <img width="100%" [src]="recipe.image"
+                            alt="recipe" class="card-img-top">
+                        <div class="card-body text-center">
+                            <h6 class="card-title mt-3">{{recipe.name}}</h6>
+                            <p>{{recipe.cuisine}}</p>
+                        </div>
+                    </div>
+
+                </div>
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<app-footer />
