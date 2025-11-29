@@ -5,7 +5,7 @@
         <!-- filter section -->
         <div class="col-lg-3">
             <h4>Filter</h4>
-            <button class="btn mt-5">All</button>
+            <button (click)="getAllRecipes()" class="btn mt-5">All</button>
             <br>
             <!-- cuisine dropdown menu -->
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="collapse"
@@ -14,17 +14,26 @@
             </button>
             <div class="collapse my-2" id="collapseExample">
                 <!-- duplicate cuisine -->
-                <button class="btn">Cuisine</button>
+                @for (cuisine of cuisineArray; track $index) {
+                    <button (click)="filterRecipe('cuisine',cuisine)" class="btn">{{cuisine}}</button>
+                }
             </div>
             <br>
             <!-- meal type dropdown menu -->
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
                 Meal Type
             </button>
             <div class="collapse my-2" id="collapseExample1">
                 <!-- duplicate cuisine -->
-                <button class="btn">Meal</button>
+              @if(filterRecipe.length===0)
+              {
+                 <p class="text-center my-5">No recipes found for selected filter.</p>
+              }@else {
+                  @for (meal of mealTypeArray; track $index) {
+                    <button (click)="filterRecipe('mealType',meal)" class="btn">{{meal}}</button>
+                }
+              }
             </div>
 
         </div>
@@ -41,7 +50,7 @@
 
                 @for (recipe of allRecipes; track $index) {
                 <div class="col-lg-3 my-2">
-                    <div class="p-3 shadow rounded">
+                    <div (click)="navigateView(recipe._id)" class="p-3 shadow rounded">
                         <img width="100%" [src]="recipe.image"
                             alt="recipe" class="card-img-top">
                         <div class="card-body text-center">
