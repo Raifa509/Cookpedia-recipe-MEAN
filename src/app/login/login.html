@@ -3,18 +3,29 @@
 
     <h2>Login</h2>
     <p>More than 100 plus Recipes from around the world</p>
-    <form style="width: 400px;" class="border rounded shadow p-5">
+    <form (ngSubmit)="login()" [formGroup]="loginForm" style="width: 400px;" class="border rounded shadow p-5">
         <div class="mb-5">
             <h3><i class="fa-solid fa-utensils me-1"></i>Cookpedia</h3>
         </div>
-        <div class="mb-3">
-            <input type="text" placeholder="Email" class="form-control">
-        </div>
-        <div class="mb-3">
-            <input type="password" placeholder="Password" class="form-control">
-        </div>
+         <div class="mb-3">
+                <input formControlName="email" name="email" type="text" placeholder="Email" class="form-control">
+                @if(loginForm.get("email")?.errors && loginForm.get("email")?.touched){
+                <div class="text-danger">
+                    *Invalid Email
+                </div>
+                }
+            </div>
+            <div class="mb-3">
+                <input formControlName="password" name="password" type="password" placeholder="Password"
+                    class="form-control">
+                @if(loginForm.get("password")?.errors && loginForm.get("password")?.touched){
+                <div class="text-danger">
+                    *Invalid password
+                </div>
+                }
+            </div>
         <div class="mb-3 d-grid">
-            <button class="btn btn-success">Login</button>
+            <button type="submit" class="btn btn-success">Login</button>
         </div>
     </form>
 </div>

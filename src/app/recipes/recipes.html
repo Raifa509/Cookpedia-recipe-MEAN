@@ -15,7 +15,7 @@
             <div class="collapse my-2" id="collapseExample">
                 <!-- duplicate cuisine -->
                 @for (cuisine of cuisineArray; track $index) {
-                    <button (click)="filterRecipe('cuisine',cuisine)" class="btn">{{cuisine}}</button>
+                <button (click)="filterRecipe('cuisine',cuisine)" class="btn">{{cuisine}}</button>
                 }
             </div>
             <br>
@@ -26,14 +26,9 @@
             </button>
             <div class="collapse my-2" id="collapseExample1">
                 <!-- duplicate cuisine -->
-              @if(filterRecipe.length===0)
-              {
-                 <p class="text-center my-5">No recipes found for selected filter.</p>
-              }@else {
-                  @for (meal of mealTypeArray; track $index) {
-                    <button (click)="filterRecipe('mealType',meal)" class="btn">{{meal}}</button>
+                @for (meal of mealTypeArray; track $index) {
+                <button (click)="filterRecipe('mealType',meal)" class="btn">{{meal}}</button>
                 }
-              }
             </div>
 
         </div>
@@ -41,18 +36,18 @@
             <!-- heading -->
             <div class="d-flex justify-content-between align-items-center">
                 <h3>All Recipes</h3>
-                <input type="text" placeholder="Search your Recipe here" class="form-control w-50">
+                <input [(ngModel)]="searchKey" type="text" placeholder="Search your Recipe here"
+                    class="form-control w-50">
             </div>
 
             <!-- content -->
             <div class="row my-5">
                 <!-- duplicate -->
 
-                @for (recipe of allRecipes; track $index) {
+                @for (recipe of allRecipes | search:searchKey | paginate: { itemsPerPage: 8, currentPage: p }; track $index) {
                 <div class="col-lg-3 my-2">
                     <div (click)="navigateView(recipe._id)" class="p-3 shadow rounded">
-                        <img width="100%" [src]="recipe.image"
-                            alt="recipe" class="card-img-top">
+                        <img width="100%" [src]="recipe.image" alt="recipe" class="card-img-top">
                         <div class="card-body text-center">
                             <h6 class="card-title mt-3">{{recipe.name}}</h6>
                             <p>{{recipe.cuisine}}</p>
@@ -62,7 +57,16 @@
                 </div>
                 }
 
+                @if((allRecipes | search:searchKey).length==0)
+                {
+                <p class="text-center my-5 fw-bold">Recipe Not Found!!!</p>
+                }
 
+            </div>
+
+            <div class="mb-3 text-center">
+                <!-- pagination control -->
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>
         </div>
 
